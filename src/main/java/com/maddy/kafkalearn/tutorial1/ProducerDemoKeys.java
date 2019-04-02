@@ -7,11 +7,11 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 
-public class ProducerDemoWithCallback {
+public class ProducerDemoKeys {
 
     public static void main(String[] args) {
 
-        final Logger logger = LoggerFactory.getLogger(ProducerDemoWithCallback.class);
+        final Logger logger = LoggerFactory.getLogger(ProducerDemoKeys.class);
 
         String bootstrapServers = "127.0.0.1:9092";
 
@@ -29,8 +29,9 @@ public class ProducerDemoWithCallback {
 
             String topic = "first_topic";
             String value = "Hello from Java producer" + Integer.toString(i);
+            String key = "id_" + Integer.toString(i);
 
-            ProducerRecord<String, String> producerRecord = new ProducerRecord<String, String>(topic, value);
+            ProducerRecord<String, String> producerRecord = new ProducerRecord<String, String>(topic, key, value);
 
             // send data - asynchronous
             kafkaProducer.send(producerRecord, new Callback() {
